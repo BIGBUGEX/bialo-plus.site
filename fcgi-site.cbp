@@ -23,7 +23,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O3" />
-					<Add option="-std=gnu++17" />
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
@@ -32,24 +31,22 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-std=c++11" />
 			<Add option="-Wall" />
+			<Add option="-std=c++17" />
 			<Add option="-fexceptions" />
 			<Add option="-Wno-invalid-offsetof" />
 		</Compiler>
 		<Linker>
 			<Add library="libfcgi.a" />
 		</Linker>
+		<Unit filename="bialo-plus.cpp" />
+		<Unit filename="bialo-plus.hpp" />
 		<Unit filename="handler.cpp" />
 		<Unit filename="handler.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="main.hpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="model.cpp" />
-		<Unit filename="model.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Extensions>
