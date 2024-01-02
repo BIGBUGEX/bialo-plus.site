@@ -59,7 +59,7 @@ int main() {
 		msgtime = time( 0 );
 		_t = gmtime( &msgtime );
 		strftime( date, 80, "%a, %d %b %G %T GMT", _t );
-		FCGX_FPrintF(req.out, "Status: %i\r\nContent-Type: %s\r\nContent-Lenght: %u\r\nDate: %s\r\nLast-Modified: %s\r\n", _res ->status, _res ->mime_type.c_str(), _res ->content.size(), date, modified );
+		FCGX_FPrintF(req.out, "Status: %i\r\nContent-Type: %s\r\nContent-Length: %u\r\nDate: %s\r\nLast-Modified: %s\r\n", _res ->status, _res ->mime_type.c_str(), _res ->content.size(), date, modified );
 
 		if( _res ->max_age )
 		FCGX_FPrintF( req.out, "Cache-Control: max-age=%u\r\n", _res ->max_age );
