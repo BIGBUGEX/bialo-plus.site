@@ -1,34 +1,5 @@
 #include "bialo-plus.hpp"
 
-#if 0
-static const char *_X____________env = R"(
-CONTENT_LENGTH = ""
-CONTENT_TYPE = ""
-DOCUMENT_ROOT = "/usr/share/nginx/html"
-DOCUMENT_URI = "/test"
-FCGI_ROLE = "RESPONDER"
-HTTPS = ""
-HTTP_ACCEPT = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-HTTP_ACCEPT_ENCODING = "gzip, deflate"
-HTTP_ACCEPT_LANGUAGE = "en-US,en;q=0.5"
-HTTP_CONNECTION = "keep-alive"
-HTTP_HOST = "bialo-plus.com"
-HTTP_UPGRADE_INSECURE_REQUESTS = "1"
-HTTP_USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:69.0) Gecko/20100101 Firefox/69.0"
-QUERY_STRING = ""
-REMOTE_ADDR = "77.71.125.167"
-REMOTE_PORT = "50840"
-REQUEST_METHOD = "GET"
-REQUEST_URI = "/test"
-SERVER_ADDR = "192.168.1.3"
-SERVER_NAME = "localhost"
-SERVER_PORT = "80"
-SERVER_PROTOCOL = "HTTP/1.1"
-)";
-Tue, 26 Dec 2023 20:42:35 GMT
-Wed, 22 Jul 2009 19:15:56 GMT
-#endif
-
 #define STATIC_CONTENT_MAXAGE 3600
 
 ui::menu_item_c ui::navbar_c::items[] = {
