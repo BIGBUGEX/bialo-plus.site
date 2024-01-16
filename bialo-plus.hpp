@@ -16,7 +16,7 @@ struct bialo_plus_c: command_root_c {
 		virtual response_c* dispatch( fcgi_request_c &req, std::string_view match, std::string_view extra );
 	};
 	
-	cmd_static_c *home, *gallery, *addvertising, *sound, *contacts;
+	cmd_static_c *home, *gallery, *advertising, *sound, *contacts;
 	
 	bialo_plus_c();
 	
@@ -58,7 +58,7 @@ struct menu_item_c {
 };
 
 struct navbar_c: element_c {
-	static menu_item_c items[5];
+	static menu_item_c items[];
 	int select;
 
 	virtual void write( std::ostream &os );
@@ -73,9 +73,10 @@ struct document_c: container_c {
 		MENU_NONE = -1,
 		MENU_HOME,
 		MENU_GALLERY,
-		MENU_ADDVERTISING,
+		MENU_ADVERTISING,
 		MENU_SOUND,
-		MENU_CONTACTS
+		MENU_CONTACTS,
+		MENU_SIZE
 	};
 
 	document_c() {}

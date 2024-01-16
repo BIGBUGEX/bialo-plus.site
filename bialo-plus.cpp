@@ -1,11 +1,40 @@
 #include "bialo-plus.hpp"
 
+#if 0
+static const char *_X____________env = R"(
+CONTENT_LENGTH = ""
+CONTENT_TYPE = ""
+DOCUMENT_ROOT = "/usr/share/nginx/html"
+DOCUMENT_URI = "/test"
+FCGI_ROLE = "RESPONDER"
+HTTPS = ""
+HTTP_ACCEPT = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HTTP_ACCEPT_ENCODING = "gzip, deflate"
+HTTP_ACCEPT_LANGUAGE = "en-US,en;q=0.5"
+HTTP_CONNECTION = "keep-alive"
+HTTP_HOST = "bialo-plus.com"
+HTTP_UPGRADE_INSECURE_REQUESTS = "1"
+HTTP_USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:69.0) Gecko/20100101 Firefox/69.0"
+QUERY_STRING = ""
+REMOTE_ADDR = "77.71.125.167"
+REMOTE_PORT = "50840"
+REQUEST_METHOD = "GET"
+REQUEST_URI = "/test"
+SERVER_ADDR = "192.168.1.3"
+SERVER_NAME = "localhost"
+SERVER_PORT = "80"
+SERVER_PROTOCOL = "HTTP/1.1"
+)";
+Tue, 26 Dec 2023 20:42:35 GMT
+Wed, 22 Jul 2009 19:15:56 GMT
+#endif
+
 #define STATIC_CONTENT_MAXAGE 3600
 
-ui::menu_item_c ui::navbar_c::items[5] = {
+ui::menu_item_c ui::navbar_c::items[] = {
 	{ "/", u8"бяло+" },
 	{ "/gallery", u8"галерия" },
-	{ "/addvertising", u8"реклама" },
+	{ "/advertising", u8"реклама" },
 	{ "/sound", u8"озвучаване" },
 	{ "/contacts", u8"контакти" }
 };
@@ -15,7 +44,7 @@ void ui::navbar_c::write( std::ostream &os ) {
 	os << " <a class=\"navbar-brand\" href=\"" << items[0].address << "\">" << items[0].text << "</a>\n";
 	os << " <ul class=\"navbar-nav\">\n";
 
-	for( int i = 1; i < 5; i++ )
+	for( int i = 1; i < ui::document_c::MENU_SIZE; i++ )
 	os << "   <li class=\"nav-item" << ( i == select ? " active\">": "\">" )
 	<< "<a class=\"nav-link\" href=\"" << items[i].address << "\">" << items[i].text << "</a></li>\n";
 
@@ -40,7 +69,8 @@ void ui::document_c::cont_begin( std::ostream &os ) {
 
  <title>)" << title << u8R"(</title>
 
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -54,7 +84,7 @@ void ui::document_c::cont_end( std::ostream &os ) {
 	os << u8R"(</div>
 <div class="container-fluid bg-secondary text-white p-5" style="min-height:200px">
  <div class="container">
-  <p> Powered by C++ </p>
+  <p> Powered by <a class="text-light" href="https://github.com/BIGBUGEX/bialo-plus.site" target="_blank">C++</a> </p>
  </div>
 </div>
 </body>
@@ -142,17 +172,17 @@ u8R"(<video class="rounded float-left mr-4" width="60%" controls>
 		ui::document_c doc;
 		
 		doc.title = u8"бяло+(реклама)";
-		doc.nav.select = ui::document_c::MENU_ADDVERTISING;
+		doc.nav.select = ui::document_c::MENU_ADVERTISING;
 		ss << doc.open <<
 u8R"(<p> Дизайн, предпечат и реклама /печатна реклама – визитки, флаери, каталози, папки/.</p>
 <p> Лого, фирмен дизайн и брандиране.</p>
 <p> Интериорен и екстериорен дизайн, фасадни решения, изрязване на надписи от PVC фолио, пълноцветен печат върху самозалепващо фолио, перфофолио и винил.</p>
 )" << doc.close;
-		addvertising = new cmd_static_c();
-		addvertising->path = "/addvertising";
-		addvertising->mime_type = "text/html; charset=utf-8";
-		addvertising->content = ss.str();
-		reg( addvertising );
+		advertising = new cmd_static_c();
+		advertising->path = "/advertising";
+		advertising->mime_type = "text/html; charset=utf-8";
+		advertising->content = ss.str();
+		reg( advertising );
 	}
 	/* sound */{
 		std::stringstream ss;
