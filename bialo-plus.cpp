@@ -138,7 +138,7 @@ u8R"(<video class="rounded float-left mr-4" width="60%" controls>
 		gallery->content = ss.str();
 		reg( gallery );
 	}
-	/* addvertising */{
+	/* advertising */{
 		std::stringstream ss;
 		ui::document_c doc;
 		
