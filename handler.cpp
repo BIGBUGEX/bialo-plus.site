@@ -28,6 +28,27 @@ void response_c::readfile( const std::string &s ) {
 void command_c::reg( command_c *sub ) {
 	unsigned i;
 	
+	for( i = 0; i < dir.size(); i++ ) {
+		if( sub->path.size() < dir[i]->path.size() ) {
+			std::string_view s( sub->path.data(), sub->path.size() ), sdir( dir[i]->path.data(), sub->path.size() );
+			
+			if( s == sdir ) {
+				dir[i]->path = std::string( dir[i]->path.data() + sub->path.size(), dir[i]->path.size() - sub->path.size() );
+				sub->reg( dir[i] );
+				dir.erase( dir.begin() + i );
+			}
+		}else {
+			std::string_view s( sub->path.data(), dir[i]->path.size() ), sdir( dir[i]->path.data(), dir[i]->path.size() );
+			
+			if( s == sdir ) {
+				sub->path = std::string( sub->path.data() + dir[i]->path.size(), sub->path.size() - dir[i]->path.size() );
+				dir[i]->reg( sub );
+				
+				return;
+			}
+		}
+	}
+	
 	for( i = 0; i < dir.size(); i++ )
 	if( sub->path < dir[i]->path ) {
 		dir.insert( dir.begin() + i, sub );
@@ -79,16 +100,12 @@ int find_last_match( const std::vector<command_c*> &v, const std::string &uri, s
 		}
 	}
 	
-	for( ; ires >= 0; ires-- )
-	if( v[ires]->path.size() <= vuri.size() ) {
+	if( ires >= 0 && v[ires]->path.size() <= vuri.size() ) {
 		std::string_view ven( v[ires]->path.data(), v[ires]->path.size() ), vseg( vuri.data(), v[ires]->path.size() );
 		
-		if( ven == vseg ) break;
-		else if( ven[0] < vseg[0] ) {
-			ires = -1;
-			
-			break;
-		}
+		if( ven != vseg ) ires = -1;
+	}else {
+		ires = -1;
 	}
 	
 	return ires;
